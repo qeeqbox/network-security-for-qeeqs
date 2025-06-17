@@ -1,0 +1,181 @@
+<html lang="en" dir="ltr" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <title>Data Link Layer</title>
+      <link href="content/stylesheet.css" rel="stylesheet" type="text/css" />
+      <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+   </head>
+   <body>
+      <h3>Data Link Layer</h3>
+      <p>A layer that enables data transmission between two nodes on the same network.</p>
+      <hr />
+      <h3>Ethernet Protocol</h3>
+      <p>A set of rules governing the communication and exchange of data between two nodes on the same network</p>
+      <ul>
+         <li>Framing: a technique that divides a data stream into smaller parts</li>
+         <li>Physical addressing: a technique that adds (encapsulates) the source and destination's MAC address to each frame</li>
+         <li>Error control: a technique that detects and corrects the error (If possible)</li>
+         <li>Flow controls: a technique that synchronizes the receiving and sending speed between nodes</li>
+         <li>Access control: a technique that allows multiple devices to use the same communication channel</li>
+      </ul>
+      <hr />
+      <h3>Two sub-layers</h3>
+      <ul>
+         <li>
+            Logical Link Control<br /> 
+            <ul>
+               <li>
+                  Multiplexing 
+                  <ul>
+                     <li>A technique that combines multiple data streams over a single medium</li>
+                  </ul>
+               </li>
+               <li>
+                  De-multiplexing 
+                  <ul>
+                     <li>A technique that reverts one input data signal back to multiple data streams</li>
+                  </ul>
+               </li>
+               <li>
+                  Flow control 
+                  <ul>
+                     <li>A technique that manages how much data it can transmit between the sender and receiver</li>
+                  </ul>
+               </li>
+               <li>
+                  Error detection 
+                  <ul>
+                     <li>A technique that checks whether the receiver has received correct data or not</li>
+                  </ul>
+               </li>
+            </ul>
+         </li>
+         <li>Media Access Control and its primary purpose is framing</li>
+      </ul>
+      <hr />
+      <h3>Bridge</h3>
+      <p>A device that has 2 ports and forwards data packets between devices (Uses MAC addresses and stores that in a lookup table)</p>
+      <p><img src="content/image7_0.png"/></p>
+      <hr />
+      <h3>L2 Switch</h3>
+      <p>A device that has more than 2 ports and forwards data packets between devices (Uses MAC addresses and stores that in a lookup table)</p>
+      <p><img src="content/image7_1.png"/></p>
+      <hr />
+      <h3>Physical Segmentation</h3>
+      <p>Physically divide a large network into smaller networks</p>
+      <p><img src="content/image7_2.png"/></p>
+      <hr />
+      <h3>Logical Segmentation</h3>
+      <p>Logically divide a large network into smaller networks (This type of segmentation is software-based)</p>
+      <p><img src="content/image7_3.png"/></p>
+      <hr />
+      <h3>Media Access Control Address (MAC Address)</h3>
+      <p>A 12-digit hexadecimal number assigned to the network interface card (A physical address used to identify devices). You can find the manufacturer of a device by its MAC Address</p>
+      <h4>Examples</h4>
+      <ul>
+         <li>00:11:22:AA:CC:DD</li>
+         <li>0011.22AA.CCDD</li>
+         <li>00-11-22-AA-CC-DD</li>
+      </ul>
+      <hr />
+      <h3>Cyberattacks</h3>
+      <ul>
+         <li>
+            ARP Poisoning 
+            <ul>
+               <li>A cyberattack where a threat actor sends malicious ARP over a local area network (LAN) to link a threat actor’s MAC address with a legitimate device IP on the network (In case of man in the middle, the packet is sent to the default gateway and the victim)</li>
+            </ul>
+         </li>
+         <li>
+            Spanning Tree Attack 
+            <ul>
+               <li>A threat actor plugs a rouge L2 switch and manipulates other devices' priority value; all traffic goes to the threat actor device</li>
+            </ul>
+         </li>
+         <li>
+            VLAN Hopping 
+            <ul>
+               <li>
+                  Switch Spoofing 
+                  <ul>
+                     <li style="color: #0e101a; background: transparent; margin-top: 0pt; margin-bottom: 0pt; list-style-type: disc;"><span style="color: #0e101a; background: transparent; margin-top: 0pt; margin-bottom: 0pt;" data-preserver-spaces="true">A threat actor plugs a rouge L2 switch to a mis-configured network, the rouge L2 switch forms an unauthorized trunk connection and gains access to the VLAN</span></li>
+                  </ul>
+               </li>
+               <li>
+                  Double Tagging 
+                  <ul>
+                     <li>A threat actor modifies the Ethernet frames tags, which allows packets to be sent through any VLAN</li>
+                  </ul>
+               </li>
+            </ul>
+         </li>
+         <li>
+            DHCP Snooping 
+            <ul>
+               <li>A threat actor plugs a rouge DHCP server and issues IPs to the end users</li>
+            </ul>
+         </li>
+      </ul>
+      <hr />
+      <h3>PCAP Example</h3>
+      <p>The python web server uses the default network interface that has a specific <span style="background-color: #f8cac6;">MAC address</span></p>
+      <pre class="prettyprint">from http.server import SimpleHTTPRequestHandler<br />from socketserver import TCPServer<br />from io import BytesIO<br />from gzip import GzipFile<br />from datetime import datetime<br />from contextlib import suppress<br /><br />with suppress(Exception):<br />&nbsp; &nbsp; from netifaces import gateways, ifaddresses, AF_INET, AF_LINK<br />&nbsp; &nbsp; print("The default network interface is: ",gateways()['default'][AF_INET][1])<br />&nbsp; &nbsp; <span style="background-color: #f8cac6;">print("The default network interface mac address is: ",ifaddresses(gateways()['default'][AF_INET][1])[AF_LINK])</span><br /><br />class Server(SimpleHTTPRequestHandler):<br />&nbsp; &nbsp; def do_GET(self):<br />&nbsp; &nbsp; &nbsp; &nbsp; compressed = False<br />&nbsp; &nbsp; &nbsp; &nbsp; content = b'&lt;HTML&gt;&lt;h1&gt;Hello World!&lt;/h1&gt;&lt;/HTML&gt;'<br />&nbsp; &nbsp; &nbsp; &nbsp; if len(content) &gt; 0:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if 'accept-encoding' in self.headers:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if 'gzip' in self.headers['accept-encoding']:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bytes_ = BytesIO()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; with GzipFile(fileobj=bytes_, mode='w', compresslevel=5) as f:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f.write(content)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f.close()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; content = bytes_.getvalue()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compressed = True<br />&nbsp; &nbsp; &nbsp; &nbsp; self.send_response(200)<br />&nbsp; &nbsp; &nbsp; &nbsp; if compressed:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; self.send_header('content-encoding', 'gzip')<br />&nbsp; &nbsp; &nbsp; &nbsp; self.send_header('content-length', len(content))<br />&nbsp; &nbsp; &nbsp; &nbsp; self.end_headers()<br />&nbsp; &nbsp; &nbsp; &nbsp; self.wfile.write(content)<br /><br />&nbsp; &nbsp; def log_message(self, format, *args):<br />&nbsp; &nbsp; &nbsp; &nbsp; print("[{}] - {}:{} - {} {}".format(datetime.now().strftime("%m/%d/%Y %H:%M:%S"), self.client_address[0],self.client_address[1],args[0],args[1]))<br /><br />TCPServer(('0.0.0.0', 80), Server).serve_forever()</pre>
+      <h4>Clint/Server IP Addresses</h4>
+      <p>The MACs are added to each packet</p>
+      <table border="1">
+         <thead>
+            <tr style="background-color: #ced4d9;">
+               <td>Layer</td>
+               <td>Protocol</td>
+               <td>PDU</td>
+               <td>Info</td>
+               <td>Ports</td>
+               <td>IPs</td>
+               <td>MACs</td>
+            </tr>
+         </thead>
+         <tbody>
+            <tr>
+               <td>Transport Layer</td>
+               <td>TCP</td>
+               <td>Segments</td>
+               <td>3 Way handshake Process (SYN)</td>
+               <td>Src Port: 35310<br />Dst Port: 80</td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Network Layer</td>
+               <td>IP</td>
+               <td>Packets</td>
+               <td>3 Way handshake Process (SYN)</td>
+               <td>Src Port: 35310<br />Dst Port: 80</td>
+               <td>Src IP: 10.0.0.3<br />Dst IP: 10.0.0.2</td>
+               <td></td>
+            </tr>
+            <tr>
+               <td style="background-color: #f8cac6;">Data Link Layer</td>
+               <td style="background-color: #f8cac6;">Ethernet</td>
+               <td style="background-color: #f8cac6;">Frames</td>
+               <td style="background-color: #f8cac6;">3 Way handshake Process (SYN)</td>
+               <td style="background-color: #f8cac6;">Src Port: 35310<br />Dst Port: 80</td>
+               <td style="background-color: #f8cac6;">Src IP: 10.0.0.3<br />Dst IP: 10.0.0.2</td>
+               <td style="background-color: #f8cac6;">
+                  <p>Src MAC: bc:35:db:cf:1b:03<br />Dst MAC: bc:f2:b8:57:86:02</p>
+               </td>
+            </tr>
+            <tr>
+               <td>Physical Layer</td>
+               <td>Coax</td>
+               <td>Bits</td>
+               <td>01001000 01010100 01010100</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+            </tr>
+         </tbody>
+      </table>
+      <p>&nbsp;</p>
+      <p><img src="content/image7_4.png"/></p>
+   </body>
+</html>

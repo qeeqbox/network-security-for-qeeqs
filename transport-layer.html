@@ -1,0 +1,459 @@
+<html lang="en" dir="ltr" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <title>Transport Layer</title>
+      <link href="content/stylesheet.css" rel="stylesheet" type="text/css" />
+      <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+   </head>
+   <body>
+      <h3>Transport Layer</h3>
+      <p>A layer that manages the transmission of data between node. It creates Transmission Control Protocol (TCP) or User Datagram Protocol (UDP) connections between nodes. Those protocols use ports for sending and receiving data from and to an application. The ports are assigned to processes using unique port numbers. The source port number has the port number of the sending application. The destination port has the port number of the receiving application. The source and destination ports are added to the segment.&nbsp;</p>
+      <hr />
+      <h3>Transmission Control Protocol (TCP)</h3>
+      <p>A connection-based that allows processes to send data via a network and verify if it's delivered or not. The process must connect via a three-way handshake before sending and receiving data</p>
+      <ul>
+         <li>
+            Pros<br /> 
+            <ul>
+               <li>Reliable</li>
+               <li>Error checking and recovery</li>
+            </ul>
+         </li>
+         <li>
+            Cons 
+            <ul>
+               <li>Slow</li>
+               <li>Resource intensive</li>
+            </ul>
+         </li>
+         <li>
+            Uses<br /> 
+            <ul>
+               <li>File sharing</li>
+               <li>Downloading</li>
+            </ul>
+         </li>
+         <li>
+            Flags 
+            <ul>
+               <li>
+                  SYN 
+                  <ul>
+                     <li>Starts a connection (It's set at the beginning of TCP connection)</li>
+                  </ul>
+               </li>
+               <li>
+                  ACK 
+                  <ul>
+                     <li>Confirms that data or initiation request has been received</li>
+                  </ul>
+               </li>
+               <li>
+                  RST 
+                  <ul>
+                     <li>Aborts the connection immediately</li>
+                  </ul>
+               </li>
+               <li>
+                  FIN 
+                  <ul>
+                     <li>Aborts the connection gracefully</li>
+                  </ul>
+               </li>
+               <li>
+                  PSH 
+                  <ul>
+                     <li>Pushes the data to the application as soon as possible (No intermediate buffering)</li>
+                  </ul>
+               </li>
+               <li>
+                  URG 
+                  <ul>
+                     <li>Prioritizes the data (This flag is obsolete)</li>
+                  </ul>
+               </li>
+            </ul>
+         </li>
+      </ul>
+      <hr />
+      <h3>User Datagram Protocol (UDP)</h3>
+      <p>A message-oriented that allows processes to send data via a network without verifying if it's delivered. It does not establish a connection before sending data</p>
+      <ul>
+         <li>
+            Pros<br /> 
+            <ul>
+               <li>Fast</li>
+               <li>Simple</li>
+               <li>Error checking (Optional)</li>
+            </ul>
+         </li>
+         <li>
+            Cons<br /> 
+            <ul>
+               <li>Does not have any error recovery</li>
+            </ul>
+         </li>
+         <li>
+            Uses 
+            <ul>
+               <li>Video streaming</li>
+               <li>Real-time services</li>
+            </ul>
+         </li>
+         <li>
+            Flags 
+            <ul>
+               <li>None</li>
+            </ul>
+         </li>
+      </ul>
+      <p>*Note, UDP does have error checking but doesn't have any error-recovery</p>
+      <hr />
+      <h3>Logical Ports</h3>
+      <p>A virtual connection point within an operating system that is assigned to a specific service and is used for sending and receiving data. Ports have a 16-bit logical address (0 to 65536). Ports under 1024 are called privileged ports and require elevated privileges to run services on them like webservers (This is defined differently based on the operating system)</p>
+      <h4>Common Used Ports</h4>
+      <ul>
+         <li>File Transfer Protocol (ftp/21)</li>
+         <li>Secure Shell Protocol (ssh/22)</li>
+         <li>Teletype Network (telnet/23)</li>
+         <li>Simple Mail Transfer Protocol (SMTP/25)</li>
+         <li>Domain Name System Protocol (DNS/53)</li>
+         <li>Hypertext Transfer Protocol (http/80)</li>
+         <li>Hypertext Transfer Protocol Secure (https/443)</li>
+         <li>Microsoft Directory Services (microsoft-ds/445)</li>
+         <li>Remote Desktop Protocol (ms-wbt-server/3389</li>
+         <li>Viewer Remote Desktop (vnc/5900)</li>
+      </ul>
+      <hr />
+      <h3>Enumerate Used Ports</h3>
+      <p>There are multiple ways to review the ports used by the services in the operating systems, you can use <code>netstat</code> or <code>lsof</code> command to show all the listening ports. If you run the customized webserver example, you will see that port 80 is used by it as the following</p>
+      <pre class="prettyprint"><code>pc@mac~% sudo </code>lsof -i -P -n | grep -E "(LISTEN)"<br />Python &nbsp; &nbsp;1544 &nbsp; www &nbsp; &nbsp;3u &nbsp;IPv4 0x0 &nbsp; &nbsp; &nbsp;0t0 &nbsp;TCP *:80 (LISTEN)</pre>
+      <hr />
+      <h3>PCAP Example</h3>
+      <p>The web server is listening on port <code>80</code>. The client can connect to this web server using the network adapter IP, but they do not need to specify pot 80 in the web browser because it uses the protocol prefix HTTP. If the web server port is <code>6789</code>, the client can do <code>http://&lt;Network_Adapter_IP&gt;:6789</code></p>
+      <pre class="prettyprint">from http.server import SimpleHTTPRequestHandler<br />from socketserver import TCPServer<br />from io import BytesIO<br />from gzip import GzipFile<br />from datetime import datetime<br />from contextlib import suppress<br /><br />with suppress(Exception):<br />&nbsp; &nbsp; from netifaces import gateways, ifaddresses, AF_INET, AF_LINK<br />&nbsp; &nbsp; print("The default network interface is: ",gateways()['default'][AF_INET][1])<br />&nbsp; &nbsp; print("The default network interface mac address is: ",ifaddresses(gateways()['default'][AF_INET][1])[AF_LINK])<br /><br />class Server(SimpleHTTPRequestHandler):<br />&nbsp; &nbsp; def do_GET(self):<br />&nbsp; &nbsp; &nbsp; &nbsp; compressed = False<br />&nbsp; &nbsp; &nbsp; &nbsp; content = b'&lt;HTML&gt;&lt;h1&gt;Hello World!&lt;/h1&gt;&lt;/HTML&gt;'<br />&nbsp; &nbsp; &nbsp; &nbsp; if len(content) &gt; 0:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if 'accept-encoding' in self.headers:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if 'gzip' in self.headers['accept-encoding']:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bytes_ = BytesIO()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; with GzipFile(fileobj=bytes_, mode='w', compresslevel=5) as f:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f.write(content)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f.close()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; content = bytes_.getvalue()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compressed = True<br />&nbsp; &nbsp; &nbsp; &nbsp; self.send_response(200)<br />&nbsp; &nbsp; &nbsp; &nbsp; if compressed:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; self.send_header('content-encoding', 'gzip')<br />&nbsp; &nbsp; &nbsp; &nbsp; self.send_header('content-length', len(content))<br />&nbsp; &nbsp; &nbsp; &nbsp; self.end_headers()<br />&nbsp; &nbsp; &nbsp; &nbsp; self.wfile.write(content)<br /><br />&nbsp; &nbsp; def log_message(self, format, *args):<br />&nbsp; &nbsp; &nbsp; &nbsp; print("[{}] - {}:{} - {} {}".format(datetime.now().strftime("%m/%d/%Y %H:%M:%S"), self.client_address[0],self.client_address[1],args[0],args[1]))<br /><br />TCPServer(('0.0.0.0', <span style="background-color: #f8cac6;">80</span>), Server).serve_forever()</pre>
+      <h4>Client initiates 3-way handshake</h4>
+      <p>The client sends Synchronize Sequence Number (SYN) request</p>
+      <table border="1">
+         <thead>
+            <tr style="background-color: #ced4d9;">
+               <td>Layer</td>
+               <td>Protocol</td>
+               <td>PDU</td>
+               <td>Info</td>
+               <td>Ports</td>
+               <td>IPs</td>
+               <td>MACs</td>
+            </tr>
+         </thead>
+         <tbody>
+            <tr>
+               <td style="background-color: #f8cac6;">Transport Layer</td>
+               <td style="background-color: #f8cac6;">TCP</td>
+               <td style="background-color: #f8cac6;">Segments</td>
+               <td style="background-color: #f8cac6;">3 Way handshake Process (SYN)</td>
+               <td style="background-color: #f8cac6;">Src Port: 35310<br />Dst Port: 80</td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Network Layer</td>
+               <td>IP</td>
+               <td>Packets</td>
+               <td>3 Way handshake Process (SYN)</td>
+               <td>Src Port: 35310<br />Dst Port: 80</td>
+               <td>Src IP: 10.0.0.3<br />Dst IP: 10.0.0.2</td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Data Link Layer</td>
+               <td>Ethernet</td>
+               <td>Frames</td>
+               <td>3 Way handshake Process (SYN)</td>
+               <td>Src Port: 35310<br />Dst Port: 80</td>
+               <td>Src IP: 10.0.0.3<br />Dst IP: 10.0.0.2</td>
+               <td>
+                  <p>Src MAC: bc:35:db:cf:1b:03<br />Dst MAC: bc:f2:b8:57:86:02</p>
+               </td>
+            </tr>
+            <tr>
+               <td>Physical Layer</td>
+               <td>Coax</td>
+               <td>Bits</td>
+               <td>01001000 01010100 01010100</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+            </tr>
+         </tbody>
+      </table>
+      <p>&nbsp;</p>
+      <p><img src="content/image5_0.png"/></p>
+      <p>The server receives the SYN request</p>
+      <table border="1">
+         <tbody>
+            <tr style="background-color: #ced4d9;">
+               <td>Layer</td>
+               <td>Protocol</td>
+               <td>PDU</td>
+               <td>Info</td>
+               <td>Ports</td>
+               <td>IPs</td>
+               <td>MACs</td>
+            </tr>
+            <tr>
+               <td>Physical Layer</td>
+               <td>Coax</td>
+               <td>Bits</td>
+               <td>01001000 01010100 01010100</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+            </tr>
+            <tr>
+               <td>Data Link Layer</td>
+               <td>Ethernet</td>
+               <td>Frames</td>
+               <td>3-Way handshake Process (SYN)</td>
+               <td>Src Port: 35310<br />Dst Port: 80</td>
+               <td>Src IP: 10.0.0.3<br />Dst IP: 10.0.0.2</td>
+               <td>
+                  <p>Src MAC: bc:35:db:cf:1b:03<br />Dst MAC: bc:f2:b8:57:86:02</p>
+               </td>
+            </tr>
+            <tr>
+               <td>Network Layer</td>
+               <td>IP</td>
+               <td>Packets</td>
+               <td>3-Way handshake Process (SYN)</td>
+               <td>Src Port: 35310<br />Dst Port: 80</td>
+               <td>Src IP: 10.0.0.3<br />Dst IP: 10.0.0.2</td>
+               <td></td>
+            </tr>
+            <tr>
+               <td style="background-color: #f8cac6;">Transport Layer</td>
+               <td style="background-color: #f8cac6;">TCP</td>
+               <td style="background-color: #f8cac6;">Segments</td>
+               <td style="background-color: #f8cac6;">3-Way handshake Process (SYN)</td>
+               <td style="background-color: #f8cac6;">Src Port: 35310<br />Dst Port: 80</td>
+               <td></td>
+               <td></td>
+            </tr>
+         </tbody>
+      </table>
+      <p>&nbsp;</p>
+      <p>The server responds with Acknowledgement Sequence Number (SYN/ACK)</p>
+      <table border="1">
+         <tbody>
+            <tr style="background-color: #ced4d9;">
+               <td>Layer</td>
+               <td>Protocol</td>
+               <td>PDU</td>
+               <td>Info</td>
+               <td>Ports</td>
+               <td>IPs</td>
+               <td>MACs</td>
+            </tr>
+            <tr>
+               <td style="background-color: #f8cac6;">Transport Layer</td>
+               <td style="background-color: #f8cac6;">TCP</td>
+               <td style="background-color: #f8cac6;">Segments</td>
+               <td style="background-color: #f8cac6;">3-Way handshake Process (SYN/ACK)</td>
+               <td style="background-color: #f8cac6;">Src Port: 80<br />Dst Port: 35310</td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Network Layer</td>
+               <td>IP</td>
+               <td>Packets</td>
+               <td>3-Way handshake Process (SYN/ACK)</td>
+               <td>Src Port: 80<br />Dst Port: 35310</td>
+               <td>Src IP: 10.0.0.2<br />Dst IP: 10.0.0.3</td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Data Link Layer</td>
+               <td>Ethernet</td>
+               <td>Frames</td>
+               <td>3-Way handshake Process (SYN/ACK)</td>
+               <td>Src Port: 80<br />Dst Port: 35310</td>
+               <td>Src IP: 10.0.0.2<br />Dst IP: 10.0.0.3</td>
+               <td>Src MAC: bc:f2:b8:57:86:02<br />Dst MAC: bc:35:db:cf:1b:03</td>
+            </tr>
+            <tr>
+               <td>Physical Layer</td>
+               <td>Coax</td>
+               <td>Bits</td>
+               <td>01001000 01010100 01010101</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+               <td>
+                  <p>01001000 01010100</p>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+      <p>&nbsp;</p>
+      <p><img src="content/image5_1.png"/></p>
+      <p>The client receives the SYN/ACK request</p>
+      <table border="1">
+         <tbody>
+            <tr style="background-color: #ced4d9;">
+               <td>Layer</td>
+               <td>Protocol</td>
+               <td>PDU</td>
+               <td>Info</td>
+               <td>Ports</td>
+               <td>IPs</td>
+               <td>MACs</td>
+            </tr>
+            <tr>
+               <td>Physical Layer</td>
+               <td>Coax</td>
+               <td>Bits</td>
+               <td>01001000 01010100 01010101</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+            </tr>
+            <tr>
+               <td>Data Link Layer</td>
+               <td>Ethernet</td>
+               <td>Frames</td>
+               <td>3-Way handshake Process (SYN/ACK)</td>
+               <td>Src Port: 80<br />Dst Port: 35310</td>
+               <td>Src IP: 10.0.0.2<br />Dst IP: 10.0.0.3</td>
+               <td>
+                  <p>Src MAC: bc:f2:b8:57:86:02<br />Dst MAC: bc:35:db:cf:1b:03</p>
+               </td>
+            </tr>
+            <tr>
+               <td>Network Layer</td>
+               <td>IP</td>
+               <td>Packets</td>
+               <td>3-Way handshake Process (SYN/ACK)</td>
+               <td>Src Port: 80<br />Dst Port: 35310</td>
+               <td>Src IP: 10.0.0.2<br />Dst IP: 10.0.0.3</td>
+               <td></td>
+            </tr>
+            <tr>
+               <td style="background-color: #f8cac6;">Transport Layer</td>
+               <td style="background-color: #f8cac6;">TCP</td>
+               <td style="background-color: #f8cac6;">Segments</td>
+               <td style="background-color: #f8cac6;">3-Way handshake Process (SYN/ACK)</td>
+               <td style="background-color: #f8cac6;">Src Port: 80<br />Dst Port: 35310</td>
+               <td></td>
+               <td></td>
+            </tr>
+         </tbody>
+      </table>
+      <p>&nbsp;</p>
+      <p>The client sends the ACK&nbsp;</p>
+      <table border="1">
+         <tbody>
+            <tr style="background-color: #ced4d9;">
+               <td>Layer</td>
+               <td>Protocol</td>
+               <td>PDU</td>
+               <td>Info</td>
+               <td>Ports</td>
+               <td>IPs</td>
+               <td>MACs</td>
+            </tr>
+            <tr>
+               <td style="background-color: #f8cac6;">Transport Layer</td>
+               <td style="background-color: #f8cac6;">TCP</td>
+               <td style="background-color: #f8cac6;">Segments</td>
+               <td style="background-color: #f8cac6;">3-Way handshake Process (ACK)</td>
+               <td style="background-color: #f8cac6;">Src Port: 35310<br />Dst Port: 80</td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Network Layer</td>
+               <td>IP</td>
+               <td>Packets</td>
+               <td>3-Way handshake Process (ACK)</td>
+               <td>Src Port: 35310<br />Dst Port: 80</td>
+               <td>Src IP: 10.0.0.3<br />Dst IP: 10.0.0.2</td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Data Link Layer</td>
+               <td>Ethernet</td>
+               <td>Frames</td>
+               <td>3-Way handshake Process (ACK)</td>
+               <td>Src Port: 35310<br />Dst Port: 80</td>
+               <td>Src IP: 10.0.0.3<br />Dst IP: 10.0.0.2</td>
+               <td>Src MAC: bc:35:db:cf:1b:03<br />Dst MAC: bc:f2:b8:57:86:02</td>
+            </tr>
+            <tr>
+               <td>Physical Layer</td>
+               <td>Coax</td>
+               <td>Bits</td>
+               <td>01001000 01010100 01010111</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+               <td>
+                  <p>01001000 01010100</p>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+      <p>&nbsp;</p>
+      <p><img src="content/image5_2.png"/></p>
+      <p>The server receives ACK request</p>
+      <table border="1">
+         <tbody>
+            <tr style="background-color: #ced4d9;">
+               <td>Layer</td>
+               <td>Protocol</td>
+               <td>PDU</td>
+               <td>Info</td>
+               <td>Ports</td>
+               <td>IPs</td>
+               <td>MACs</td>
+            </tr>
+            <tr>
+               <td>Physical Layer</td>
+               <td>Coax</td>
+               <td>Bits</td>
+               <td>01001000 01010100 01010111</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+            </tr>
+            <tr>
+               <td>Data Link Layer</td>
+               <td>Ethernet</td>
+               <td>Frames</td>
+               <td>3-Way handshake Process (SYN/ACK)</td>
+               <td>Src Port: 35310<br />Dst Port: 80</td>
+               <td>Src IP: 10.0.0.3<br />Dst IP: 10.0.0.2</td>
+               <td>
+                  <p>Src MAC: bc:35:db:cf:1b:03<br />Dst MAC: bc:f2:b8:57:86:02</p>
+               </td>
+            </tr>
+            <tr>
+               <td>Network Layer</td>
+               <td>IP</td>
+               <td>Packets</td>
+               <td>3-Way handshake Process (SYN/ACK)</td>
+               <td>Src Port: 35310<br />Dst Port: 80</td>
+               <td>Src IP: 10.0.0.3<br />Dst IP: 10.0.0.2</td>
+               <td></td>
+            </tr>
+            <tr>
+               <td style="background-color: #f8cac6;">Transport Layer</td>
+               <td style="background-color: #f8cac6;">TCP</td>
+               <td style="background-color: #f8cac6;">Segments</td>
+               <td style="background-color: #f8cac6;">3-Way handshake Process (SYN/ACK)</td>
+               <td style="background-color: #f8cac6;">Src Port: 35310<br />Dst Port: 80</td>
+               <td></td>
+               <td></td>
+            </tr>
+         </tbody>
+      </table>
+   </body>
+</html>

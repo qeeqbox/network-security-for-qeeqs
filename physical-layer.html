@@ -1,0 +1,297 @@
+<html lang="en" dir="ltr" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <title>Physical Layer</title>
+      <link href="content/stylesheet.css" rel="stylesheet" type="text/css" />
+      <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+   </head>
+   <body>
+      <h3>Physical Layer</h3>
+      <p>This layer defines the physical connection between devices. It has no intelligence built-in, and it's responsible for transmitting and receiving a bit-stream 1's and 0's (physical signals) over a physical medium such as cable, fiber, or wireless. The bits are represented based on the type of medium.</p>
+      <hr />
+      <h3>Coaxial Cable</h3>
+      <p>An electrical cable that is used to transmit radio frequency signals from one point to another</p>
+      <hr />
+      <h3>Binary</h3>
+      <p>Binary is a base-2 number system where there are only 2 possible values 1s or 0s</p>
+      <pre class="prettyprint">0110001101101100011000010111001001101011001000000110001101101111011011</pre>
+      <hr />
+      <h3>Bits</h3>
+      <p>A bit is a binary digit, the smallest unit of storage on a computer</p>
+      <pre class="prettyprint">1  On<br />0  Off</pre>
+      <hr />
+      <h3>Bytes</h3>
+      <p>A byte is equal to 8 bits, usually a byte represents a character like the letter C, which is <code>01000011</code> in bits, but some characters may require more than one 1 byte</p>
+      <pre class="prettyprint">00110001 is equal to 1<br />01110100 01100101 01110011 01110100 is equal to test</pre>
+      <hr />
+      <h3>Medium types</h3>
+      <ul>
+         <li>
+            Cables 
+            <ul>
+               <li>The signals are electrical pulses</li>
+            </ul>
+         </li>
+         <li>
+            Fiber 
+            <ul>
+               <li>The signals are light pluses</li>
+            </ul>
+         </li>
+      </ul>
+      <ul>
+         <li>
+            Wireless 
+            <ul>
+               <li>The signals are electromagnetic waves</li>
+            </ul>
+         </li>
+      </ul>
+      <hr />
+      <h3>Some Functions</h3>
+      <ul>
+         <li>
+            Transmission mode 
+            <ul>
+               <li>
+                  Simplex 
+                  <ul>
+                     <li>A unidirectional communication where the sender sends data, and the receiver receives data&nbsp;</li>
+                  </ul>
+               </li>
+               <li>
+                  Half duplex 
+                  <ul>
+                     <li>A bidirectional communication where the sender can send or receive data but only in one direction at a time</li>
+                  </ul>
+               </li>
+               <li>
+                  Full duplex 
+                  <ul>
+                     <li>A bidirectional communication simultaneously where the sender can send and receive data at a time</li>
+                  </ul>
+               </li>
+            </ul>
+         </li>
+         <li>
+            Physical topologies 
+            <ul>
+               <li>
+                  Point-to-point 
+                  <ul>
+                     <li>&nbsp;Two nodes are connected with a dedicated link</li>
+                  </ul>
+               </li>
+               <li>
+                  Bus 
+                  <ul>
+                     <li>Nodes are connected using a single cable</li>
+                  </ul>
+               </li>
+               <li>
+                  Ring 
+                  <ul>
+                     <li>Each node connected (Point-to-point)&nbsp; to another on each side, the last one is connected to first one (Data travels in circle)</li>
+                  </ul>
+               </li>
+               <li>
+                  Mesh 
+                  <ul>
+                     <li>Nodes are connected (Point-to-point) with all the other nodes</li>
+                  </ul>
+               </li>
+               <li>
+                  Star 
+                  <ul>
+                     <li>Nodes are connected to a central node (Each node communicates indirectly through the central node)</li>
+                  </ul>
+               </li>
+            </ul>
+         </li>
+      </ul>
+      <hr />
+      <h3>Latency</h3>
+      <p>Latency is the amount of time data takes to reach its destination</p>
+      <hr />
+      <h3>Wired vs. Wireless</h3>
+      <ul>
+         <li>
+            Wired 
+            <ul>
+               <li>
+                  Faster data transfer 
+                  <ul>
+                     <li>Speed is consistent</li>
+                  </ul>
+               </li>
+               <li>
+                  Has Lower latency 
+                  <ul>
+                     <li>Data travels faster, which means low latency by default</li>
+                  </ul>
+               </li>
+               <li>
+                  Hard to deploy 
+                  <ul>
+                     <li>Connected devices usually do not move (Desktop)</li>
+                  </ul>
+               </li>
+               <li>
+                  More secure (Data does not need to be encrypted?) 
+                  <ul>
+                     <li>Data can be accessed by devices that physically attached to that network</li>
+                  </ul>
+               </li>
+            </ul>
+         </li>
+         <li>
+            Wireless 
+            <ul>
+               <li>
+                  Slow data transfer 
+                  <ul>
+                     <li>Speed is not consistent</li>
+                  </ul>
+               </li>
+               <li>
+                  Has higher latency 
+                  <ul>
+                     <li>Distance</li>
+                     <li>Data is susceptible to noise (Re-send)</li>
+                     <li>Data is encrypted and needs some time to be decrypted</li>
+                  </ul>
+               </li>
+               <li>
+                  Easy to deploy 
+                  <ul>
+                     <li>Connected devices can be moved (A smart phone)</li>
+                  </ul>
+               </li>
+               <li>
+                  Less secure (Data needs to be encrypted?) 
+                  <ul>
+                     <li>Data travels through the air and can be intercepted</li>
+                  </ul>
+               </li>
+            </ul>
+         </li>
+      </ul>
+      <hr />
+      <h3>Examples</h3>
+      <ul>
+         <li>
+            Network interface cards (NIC)<br /> 
+            <ul>
+               <li>Provides a physical connection to a network</li>
+            </ul>
+         </li>
+         <li>
+            Modem 
+            <ul>
+               <li>Converts the signal type from one type to another type</li>
+            </ul>
+         </li>
+         <li>
+            Hubs 
+            <ul>
+               <li>Connects multiple devices in the network (A node that broadcasts data to all connected devices)</li>
+            </ul>
+         </li>
+         <li>
+            Cables 
+            <ul>
+               <li>A wire or a set of wires that connects one device with another</li>
+            </ul>
+         </li>
+      </ul>
+      <hr />
+      <h3>Physical attacks</h3>
+      <ul>
+         <li>
+            Theft 
+            <ul>
+               <li>A threat actor may steal a device or an equipment</li>
+            </ul>
+         </li>
+         <li>
+            Jamming 
+            <ul>
+               <li><span style="color: #0e101a; background: transparent; margin-top: 0pt; margin-bottom: 0pt;" data-preserver-spaces="true">A threat actor may send interfering signals to the target (A Denial-of-Service attack)</span></li>
+            </ul>
+         </li>
+         <li>
+            Tampering 
+            <ul>
+               <li><span style="color: #0e101a; background: transparent; margin-top: 0pt; margin-bottom: 0pt;" data-preserver-spaces="true">A threat actor may cut cables, unplug devices, etc..</span></li>
+            </ul>
+         </li>
+         <li>
+            Tapping 
+            <ul>
+               <li><span style="color: #0e101a; background: transparent; margin-top: 0pt; margin-bottom: 0pt;" data-preserver-spaces="true">A threat actor may plug a device that monitors the network traffic</span></li>
+            </ul>
+         </li>
+      </ul>
+      <hr />
+      <h3>PCAP Example</h3>
+      <p>In the PCAP file, you can get an overview of the data by clicking on the entry, then <code>Frame 1</code> (In this case, it's the metadata gathered about the data), which includes detailed info about the data that are transmitted or received, some of the info, like interface id, name, and description, are not part of the data, but they are in Wireshark for analysis and troubleshooting network problems</p>
+      <pre class="prettyprint">from http.server import SimpleHTTPRequestHandler<br />from socketserver import TCPServer<br />from io import BytesIO<br />from gzip import GzipFile<br />from datetime import datetime<br />from contextlib import suppress<br /><br />with suppress(Exception):<br />&nbsp; &nbsp; from netifaces import gateways, ifaddresses, AF_INET, AF_LINK<br />&nbsp; &nbsp; print("The default network interface is: ",gateways()['default'][AF_INET][1])<br />&nbsp; &nbsp; print("The default network interface mac address is: ",ifaddresses(gateways()['default'][AF_INET][1])[AF_LINK])<br /><br />class Server(SimpleHTTPRequestHandler):<br />&nbsp; &nbsp; def do_GET(self):<br />&nbsp; &nbsp; &nbsp; &nbsp; compressed = False<br />&nbsp; &nbsp; &nbsp; &nbsp; content = b'&lt;HTML&gt;&lt;h1&gt;Hello World!&lt;/h1&gt;&lt;/HTML&gt;'<br />&nbsp; &nbsp; &nbsp; &nbsp; if len(content) &gt; 0:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if 'accept-encoding' in self.headers:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if 'gzip' in self.headers['accept-encoding']:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bytes_ = BytesIO()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; with GzipFile(fileobj=bytes_, mode='w', compresslevel=5) as f:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f.write(content)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f.close()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; content = bytes_.getvalue()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compressed = True<br />&nbsp; &nbsp; &nbsp; &nbsp; self.send_response(200)<br />&nbsp; &nbsp; &nbsp; &nbsp; if compressed:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; self.send_header('content-encoding', 'gzip')<br />&nbsp; &nbsp; &nbsp; &nbsp; self.send_header('content-length', len(content))<br />&nbsp; &nbsp; &nbsp; &nbsp; self.end_headers()<br />&nbsp; &nbsp; &nbsp; &nbsp; self.wfile.write(content)<br /><br />&nbsp; &nbsp; def log_message(self, format, *args):<br />&nbsp; &nbsp; &nbsp; &nbsp; print("[{}] - {}:{} - {} {}".format(datetime.now().strftime("%m/%d/%Y %H:%M:%S"), self.client_address[0],self.client_address[1],args[0],args[1]))<br /><br />TCPServer(('0.0.0.0', 80), Server).serve_forever()</pre>
+      <h4>Clint/Server Data</h4>
+      <p>The data is transmitted and transported in raw format</p>
+      <table border="1">
+         <thead>
+            <tr style="background-color: #ced4d9;">
+               <td>Layer</td>
+               <td>Protocol</td>
+               <td>PDU</td>
+               <td>Info</td>
+               <td>Ports</td>
+               <td>IPs</td>
+               <td>MACs</td>
+            </tr>
+         </thead>
+         <tbody>
+            <tr>
+               <td>Transport Layer</td>
+               <td>TCP</td>
+               <td>Segments</td>
+               <td>3 Way handshake Process (SYN)</td>
+               <td>Src Port: 35310<br />Dst Port: 80</td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Network Layer</td>
+               <td>IP</td>
+               <td>Packets</td>
+               <td>3 Way handshake Process (SYN)</td>
+               <td>Src Port: 35310<br />Dst Port: 80</td>
+               <td>Src IP: 10.0.0.3<br />Dst IP: 10.0.0.2</td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Data Link Layer</td>
+               <td>Ethernet</td>
+               <td>Frames</td>
+               <td>3 Way handshake Process (SYN)</td>
+               <td>Src Port: 35310<br />Dst Port: 80</td>
+               <td>Src IP: 10.0.0.3<br />Dst IP: 10.0.0.2</td>
+               <td>
+                  <p>Src MAC: bc:35:db:cf:1b:03<br />Dst MAC: bc:f2:b8:57:86:02</p>
+               </td>
+            </tr>
+            <tr>
+               <td style="background-color: #f8cac6;">Physical Layer</td>
+               <td style="background-color: #f8cac6;">Coax</td>
+               <td style="background-color: #f8cac6;">Bits</td>
+               <td style="background-color: #f8cac6;">01001000 01010100 01010100</td>
+               <td style="background-color: #f8cac6;">01001000 01010100</td>
+               <td style="background-color: #f8cac6;">01001000 01010100</td>
+               <td style="background-color: #f8cac6;">01001000 01010100</td>
+            </tr>
+         </tbody>
+      </table>
+      <p>&nbsp;</p>
+      <p><img src="content/image8_0.png"/></p>
+   </body>
+</html>

@@ -1,0 +1,280 @@
+<html lang="en" dir="ltr" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Network Layer</title>
+        <link href="content/stylesheet.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    </head>
+   <body>
+      <h3>Network Layer</h3>
+      <p>A layer that enables the transmission of data between two nodes on the different networks. It handles routing and determining the path of data through a network.</p>
+      <hr />
+      <h3>Internet Protocol (IP)</h3>
+      <p>A set of rules governing the routing and addressing packets (communication and exchange) of data over the internet</p>
+      <hr />
+      <h3>Internet Protocol Address V4 (IPv4)</h3>
+      <p>A network address that is used to locate the device; it has 32-bit numbers represented as strings of 0s and 1s</p>
+      <h4>Binary</h4>
+      <p>11000000.10101000.00000001.00000001</p>
+      <h4>Decimal</h4>
+      <p>192.168.1.1</p>
+      <hr />
+      <h3>IPv4 Addresses Classification</h3>
+      <ul>
+         <li>
+            Public addresses 
+            <ul>
+               <li>Used for external communication (access the Internet)</li>
+            </ul>
+         </li>
+         <li>
+            Private addresses 
+            <ul>
+               <li>Used for internal communication (access resources in a local network)</li>
+            </ul>
+         </li>
+      </ul>
+      <hr />
+      <h3>IPv4 Addresses Classes</h3>
+      <ul>
+         <li>
+            Class A 
+            <ul>
+               <li>1.0.0.1 to 126.255.255.254</li>
+               <li>Networks: 126</li>
+               <li>Host per 1 a networks: 16,777,214</li>
+               <li>Subnet Mask: 255.0.0.0</li>
+               <li>
+                  Private Range 
+                  <ul>
+                     <li>10.0.0.0 to 10.255.255.255</li>
+                  </ul>
+               </li>
+               <li>Used for very large networks</li>
+            </ul>
+         </li>
+         <li>
+            Class B 
+            <ul>
+               <li>128.1.0.1 to 191.255.255.254</li>
+               <li>Networks: 16,382</li>
+               <li>Host per 1 a networks: 65,534</li>
+               <li>Subnet Mask: 255.255.0.0</li>
+               <li>
+                  Private Range 
+                  <ul>
+                     <li>172.16.0.0 to 172.31.255.255</li>
+                     <li>
+                        169.254.0.0 to 169.254.255.255 
+                        <ul>
+                           <li>Automatic Private IP Addressing (APIPA)</li>
+                           <li>A device will assign itself an IP address within that range if Dynamic Host Configuration Protocol (DHCP) does not work or failed</li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li>Used for small networks</li>
+            </ul>
+         </li>
+         <li>
+            Class C 
+            <ul>
+               <li>192.0.1.1 to 223.255.254.254</li>
+               <li>Networks: 2,097,150</li>
+               <li>Host per 1 a networks: 254</li>
+               <li>Subnet Mask: 255.255.255.0</li>
+               <li>
+                  Private Range 
+                  <ul>
+                     <li>192.168.0.0 to 192.168.255.255</li>
+                  </ul>
+               </li>
+               <li>Used for very small-sized network</li>
+            </ul>
+         </li>
+         <li>
+            Class D 
+            <ul>
+               <li>224.0.0.0 to 239.255.255.255</li>
+               <li>Reserved for multicast groups.</li>
+            </ul>
+         </li>
+         <li>
+            Class E 
+            <ul>
+               <li>240.0.0.0 to 254.255.255.254</li>
+               <li>Research/Reserved/Experimental</li>
+            </ul>
+         </li>
+      </ul>
+      <p>Note: Class A also has 127.0.0.0 to 127.255.255.255 are reserved for loopback and diagnostic (Those addresses cannot be used)</p>
+      <hr />
+      <h3>Subnet&nbsp;</h3>
+      <p>A method of creating a smaller network inside a large network</p>
+      <ul>
+         <li>255.0.0.0 - /8 - 1 network - 16,777,214 hosts in the network</li>
+         <li>255.128.0.0 - /9 - 2 subnets - 8,388,606 hosts in each network</li>
+         <li>255.192.0.0 - /10 - &nbsp;4 subnets - 4,194,302 hosts in each network</li>
+         <li>255.224.0.0 - /11 - &nbsp;8 subnets - 2,097,150 hosts in each network</li>
+         <li>255.240.0.0 - /12 - &nbsp;16 subnets - 1,048,574 hosts in each network</li>
+         <li>255.248.0.0 - /13 - &nbsp;32 subnets - 524,286 hosts in each network</li>
+         <li>255.252.0.0 - /14 - &nbsp;64 subnets - 262,142 hosts in each network</li>
+         <li>255.254.0.0 - /15 - &nbsp;128 subnets - 131,070 hosts in each network</li>
+         <li>255.255.0.0 - /16 - &nbsp;256 subnets - 65,534 hosts in each network</li>
+         <li>255.255.128.0 - /17 - &nbsp;512 subnets - 32,766 hosts in each network</li>
+         <li>255.255.192.0 - /18 - &nbsp;1,024 subnets - 16,384 hosts in each network</li>
+         <li>255.255.224.0 - /19 - &nbsp;2,048 subnets - 8,190 hosts in each network</li>
+         <li>255.255.240.0 - /20 - &nbsp;4,096 subnets - 4,094 hosts in each network</li>
+         <li>255.255.248.0 - /21 - &nbsp;8,192 subnets - 2,046 hosts in each network</li>
+         <li>255.255.252.0 - /22 - &nbsp;16,384 subnets - 1,022 hosts in each network</li>
+         <li>255.255.254.0 - /23 - &nbsp;32,768 subnets - 510 hosts in each network</li>
+         <li>255.255.255.0 - /24 - &nbsp;65,536 subnets - 254 hosts in each network</li>
+         <li>255.255.255.128 - /25 - &nbsp;131,072 subnets - 126 hosts in each network</li>
+         <li>255.255.255.192 - /26 - &nbsp;262,144 subnets - 62 hosts in each network</li>
+         <li>255.255.255.224 - /27 - &nbsp;524,288 subnets - 30 hosts in each network</li>
+         <li>255.255.255.240 - /28 - &nbsp;1,048,576 subnets - 14 hosts in each network</li>
+         <li>255.255.255.248 - /29 - &nbsp;2,097,152 subnets - 6 hosts in each network</li>
+         <li>255.255.255.252 - /30 - &nbsp;4,194,304 subnets - 2 hosts in each network</li>
+      </ul>
+      <hr />
+      <h3>Internet Protocol Address V4 (IPv4) Example</h3>
+      <p>192.168.1.0/25, the first node starts at 0, and the last one is 126</p>
+      <ul>
+         <li>
+            192.168.1.0 
+            <ul>
+               <li>0 is the network address (network identifier)</li>
+            </ul>
+         </li>
+         <li>
+            192.168.1.2 
+            <ul>
+               <li>A node on the network</li>
+            </ul>
+         </li>
+         <li>
+            192.168.1.126<br /> 
+            <ul>
+               <li>Last node on the network</li>
+            </ul>
+         </li>
+         <li>
+            192.168.1.127 
+            <ul>
+               <li>Broadcast address (All nodes in that subnet respond to it)</li>
+            </ul>
+         </li>
+      </ul>
+      <hr />
+      <h3>Router</h3>
+      <p>A physical or virtual device that forward data packets between computer networks (Uses IP addresses and stores that in a routing table)</p>
+      <p><img src="content/image6_0.png"/></p>
+      <hr />
+      <h3>VLAN Interconnection</h3>
+      <p>A technique that used to allow routing between VLANs</p>
+      <p><img src="content/image6_1.png"/></p>
+      <hr />
+      <h3>VLAN Interconnection (Router on stick - Trunk port)</h3>
+      <p>A technique that used to allow routing between VLANs using a single interface</p>
+      <p><img src="content/image6_2.png"/></p>
+      <hr />
+      <h3>Cyberattacks</h3>
+      <ul>
+          <li>Man in the Middle (MITM)
+              <ul>
+                  <li>A threat actor intercepts and relays messages between 2 targets (This attack is a type of eavesdropping attack)
+                      <ul>
+                          <li>Hijacking attack
+                              <ul>
+                                  <li>Session Hijacking
+                                      <ul>
+                                          <li>A threat actor accesses the user's account using a stolen or leaked valid (existing) session identifier</li>
+                                      </ul>
+                                  </li>
+                              </ul>
+                          </li>
+                          <li>Eavesdropping attack
+                              <ul>
+                                  <li>Wi-Fi Eavesdropping (Evil Twin)</li>
+                              </ul>
+                          </li>
+                          <li>Spoofing attack
+                              <ul>
+                                  <li>ARP Spoofing
+                                      <ul>
+                                          <li>A threat utilizing the victim's MAC (This happens after the ARP poising, and the threat actor can carry the end goal of the cyberattack like a man in the middle)</li>
+                                      </ul>
+                                  </li>
+                                  <li>DNS Spoofing
+                                      <ul>
+                                          <li>When a victim gets directed to a malicious website (This happens after DNS poising)</li>
+                                      </ul>
+                                  </li>
+                              </ul>
+                          </li>
+                      </ul>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+      <hr />
+      <h3>PCAP Example</h3>
+      <p>The web server here uses <code>0.0.0.0</code> IP; this is a placeholder that means listen to all, it accepts incoming connections from all network adapters (If this was 127.0.0.1, it would only be accessible to processes running on the device itself). A client can connect to this web server using the network adapter IP, in this case, the network adapter IP is <code>10.0.0.2</code> as shown in the Wireshark image</p>
+      <pre class="prettyprint">from http.server import SimpleHTTPRequestHandler<br />from socketserver import TCPServer<br />from io import BytesIO<br />from gzip import GzipFile<br />from datetime import datetime<br />from contextlib import suppress<br /><br />with suppress(Exception):<br />&nbsp; &nbsp; from netifaces import gateways, ifaddresses, AF_INET, AF_LINK<br />&nbsp; &nbsp; print("The default network interface is: ",gateways()['default'][AF_INET][1])<br />&nbsp; &nbsp; print("The default network interface mac address is: ",ifaddresses(gateways()['default'][AF_INET][1])[AF_LINK])<br /><br />class Server(SimpleHTTPRequestHandler):<br />&nbsp; &nbsp; def do_GET(self):<br />&nbsp; &nbsp; &nbsp; &nbsp; compressed = False<br />&nbsp; &nbsp; &nbsp; &nbsp; content = b'&lt;HTML&gt;&lt;h1&gt;Hello World!&lt;/h1&gt;&lt;/HTML&gt;'<br />&nbsp; &nbsp; &nbsp; &nbsp; if len(content) &gt; 0:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if 'accept-encoding' in self.headers:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if 'gzip' in self.headers['accept-encoding']:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bytes_ = BytesIO()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; with GzipFile(fileobj=bytes_, mode='w', compresslevel=5) as f:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f.write(content)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f.close()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; content = bytes_.getvalue()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compressed = True<br />&nbsp; &nbsp; &nbsp; &nbsp; self.send_response(200)<br />&nbsp; &nbsp; &nbsp; &nbsp; if compressed:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; self.send_header('content-encoding', 'gzip')<br />&nbsp; &nbsp; &nbsp; &nbsp; self.send_header('content-length', len(content))<br />&nbsp; &nbsp; &nbsp; &nbsp; self.end_headers()<br />&nbsp; &nbsp; &nbsp; &nbsp; self.wfile.write(content)<br /><br />&nbsp; &nbsp; def log_message(self, format, *args):<br />&nbsp; &nbsp; &nbsp; &nbsp; print("[{}] - {}:{} - {} {}".format(datetime.now().strftime("%m/%d/%Y %H:%M:%S"), self.client_address[0],self.client_address[1],args[0],args[1]))<br /><br />TCPServer(('<span style="background-color: #f8cac6;">0.0.0.0</span>', 80), Server).serve_forever()</pre>
+      <h4>Clint/Server IP Addresses</h4>
+      <p>The IPs are added to each packet</p>
+      <table border="1">
+         <thead>
+            <tr style="background-color: #ced4d9;">
+               <td>Layer</td>
+               <td>Protocol</td>
+               <td>PDU</td>
+               <td>Info</td>
+               <td>Ports</td>
+               <td>IPs</td>
+               <td>MACs</td>
+            </tr>
+         </thead>
+         <tbody>
+            <tr>
+               <td>Transport Layer</td>
+               <td>TCP</td>
+               <td>Segments</td>
+               <td>3 Way handshake Process (SYN)</td>
+               <td>Src Port: 35310<br />Dst Port: 80</td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td style="background-color: #f8cac6;">Network Layer</td>
+               <td style="background-color: #f8cac6;">IP</td>
+               <td style="background-color: #f8cac6;">Packets</td>
+               <td style="background-color: #f8cac6;">3 Way handshake Process (SYN)</td>
+               <td style="background-color: #f8cac6;">Src Port: 35310<br />Dst Port: 80</td>
+               <td style="background-color: #f8cac6;">Src IP: 10.0.0.3<br />Dst IP: 10.0.0.2</td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Data Link Layer</td>
+               <td>Ethernet</td>
+               <td>Frames</td>
+               <td>3 Way handshake Process (SYN)</td>
+               <td>Src Port: 35310<br />Dst Port: 80</td>
+               <td>Src IP: 10.0.0.3<br />Dst IP: 10.0.0.2</td>
+               <td>
+                  <p>Src MAC: bc:35:db:cf:1b:03<br />Dst MAC: bc:f2:b8:57:86:02</p>
+               </td>
+            </tr>
+            <tr>
+               <td>Physical Layer</td>
+               <td>Coax</td>
+               <td>Bits</td>
+               <td>01001000 01010100 01010100</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+            </tr>
+         </tbody>
+      </table>
+   </body>
+</html>

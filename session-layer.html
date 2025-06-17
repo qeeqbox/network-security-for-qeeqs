@@ -1,0 +1,441 @@
+<html lang="en" dir="ltr" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <title>Session Layer</title>
+      <link href="content/stylesheet.css" rel="stylesheet" type="text/css" />
+      <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+   </head>
+   <body>
+      <h3>Session Layer</h3>
+      <p>A layer that enables connection between nodes, it opens and closes communication between the two devices, the communication channels are called sessions.</p>
+      <hr />
+      <h3>Socket</h3>
+      <p>An interface the processes use to interact with the transport layer</p>
+      <ul>
+         <li>
+            Active 
+            <ul>
+               <li>
+                  The client initiates a TCP connection. 
+                  <ul>
+                     <li>Create a socket</li>
+                     <li>Connect to a server</li>
+                  </ul>
+               </li>
+            </ul>
+         </li>
+         <li>
+            Passive<br /> 
+            <ul>
+               <li>
+                  The server is waiting for SYN requests from clients who want to connect 
+                  <ul>
+                     <li>Create a socket</li>
+                     <li>Bind IP and Port</li>
+                     <li>Listen to connections</li>
+                     <li>Accept a connection</li>
+                  </ul>
+               </li>
+            </ul>
+         </li>
+      </ul>
+      <hr />
+      <h3>Authentication</h3>
+      <p>Ensuring the claimed identity is valid (Verifying someone's or an object's identity)</p>
+      <hr />
+      <h3>Authorization</h3>
+      <p>Determining if someone or an object has permission to do something after their identity is verified</p>
+      <hr />
+      <h3>Cyberattacks</h3>
+      <ul>
+         <li>
+            Session Hijacking 
+            <ul>
+               <li>A threat actor accesses the user's account using a stolen or leaked valid (existing) session identifier</li>
+            </ul>
+         </li>
+         <li>
+            Session Fixation 
+            <ul>
+               <li>A threat actor may trick a user into using a known session identifier to log in. after logging in, the session identifier is used to gain access to the user's account.</li>
+            </ul>
+         </li>
+         <li>
+            Session Replay 
+            <ul>
+               <li>A threat actor may re-use a stolen or leaked session identifier to access the user's account</li>
+            </ul>
+         </li>
+      </ul>
+      <hr />
+      <h3>PCAP Example</h3>
+      <p>The client requested web content from the server, the client created a session for handling the connection.</p>
+      <h4>Client initiates Session</h4>
+      <p>The client browser creates an active socket to communicate with the server</p>
+      <table border="1">
+         <thead>
+            <tr style="background-color: #ced4d9;">
+               <td>Layer</td>
+               <td>Protocol</td>
+               <td>PDU</td>
+               <td>Info</td>
+               <td>Ports</td>
+               <td>IPs</td>
+               <td>MACs</td>
+            </tr>
+         </thead>
+         <tbody>
+            <tr>
+               <td>Application Layer</td>
+               <td>HTTP</td>
+               <td>Data</td>
+               <td>
+                  <ul>
+                     <li>GET / HTTP/1.1</li>
+                     <li>Host: 10.0.0.2</li>
+                     <li>User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0</li>
+                     <li>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8</li>
+                     <li>Accept-Language: en-US,en;q=0.5</li>
+                     <li>Accept-Encoding: gzip, deflate</li>
+                     <li>Connection: keep-alive</li>
+                     <li>Upgrade-Insecure-Requests: 1</li>
+                  </ul>
+               </td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Presentation Layer</td>
+               <td>Raw</td>
+               <td>Data</td>
+               <td>GET / HTTP/1.1\r\nHost: 10.0.0.2\r\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nAccept-Encoding: gzip, deflate\r\nConnection: keep-alive\r\nUpgrade-Insecure-Requests: 1</td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td style="background-color: #f8cac6;">Session Layer</td>
+               <td style="background-color: #f8cac6;">Socket</td>
+               <td style="background-color: #f8cac6;">Data</td>
+               <td style="background-color: #f8cac6;">GET / HTTP/1.1\r\nHost: 10.0.0.2\r\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nAccept-Encoding: gzip, deflate\r\nConnection: keep-alive\r\nUpgrade-Insecure-Requests: 1</td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Transport Layer</td>
+               <td>TCP</td>
+               <td>Segments</td>
+               <td>GET / HTTP/1.1\r\nHost: 10.0.0.2\r\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nAccept-Encoding: gzip, deflate\r\nConnection: keep-alive\r\nUpgrade-Insecure-Requests: 1</td>
+               <td>Src Port: 35310<br />Dst Port: 80</td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Network Layer</td>
+               <td>IP</td>
+               <td>Packets</td>
+               <td>GET / HTTP/1.1\r\nHost: 10.0.0.2\r\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nAccept-Encoding: gzip, deflate\r\nConnection: keep-alive\r\nUpgrade-Insecure-Requests: 1</td>
+               <td>Src Port: 35310<br />Dst Port: 80</td>
+               <td>Src IP: 10.0.0.3<br />Dst IP: 10.0.0.2</td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Data Link Layer</td>
+               <td>Ethernet</td>
+               <td>Frames</td>
+               <td>GET / HTTP/1.1\r\nHost: 10.0.0.2\r\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nAccept-Encoding: gzip, deflate\r\nConnection: keep-alive\r\nUpgrade-Insecure-Requests: 1</td>
+               <td>Src Port: 35310<br />Dst Port: 80</td>
+               <td>Src IP: 10.0.0.3<br />Dst IP: 10.0.0.2</td>
+               <td>
+                  <p>Src MAC: bc:35:db:cf:1b:03<br />Dst MAC: bc:f2:b8:57:86:02</p>
+               </td>
+            </tr>
+            <tr>
+               <td>Physical Layer</td>
+               <td>Coax</td>
+               <td>Bits</td>
+               <td>01001000 01010100 01010100 01010000 00101111 00110001 00101110 00110000 00100000&nbsp;</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+            </tr>
+         </tbody>
+      </table>
+      <p>&nbsp;</p>
+      <p><img src="content/image4_0.png"/></p>
+      <p><img src="content/image4_1.png"/></p>
+      <h4>Server Accepts Session</h4>
+      <p>The server has a passive socket that accepts the client's connection</p>
+      <table border="1">
+         <tbody>
+            <tr style="background-color: #ced4d9;">
+               <td>Layer</td>
+               <td>Protocol</td>
+               <td>PDU</td>
+               <td>Info</td>
+               <td>Ports</td>
+               <td>IPs</td>
+               <td>MACs</td>
+            </tr>
+            <tr>
+               <td>Physical Layer</td>
+               <td>Coax</td>
+               <td>Bits</td>
+               <td>01001000 01010100 01010100 01010000 00101111 00110001 00101110 00110000 00100000&nbsp;</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+            </tr>
+            <tr>
+               <td>Data Link Layer</td>
+               <td>Ethernet</td>
+               <td>Frames</td>
+               <td>GET / HTTP/1.1\r\nHost: 10.0.0.2\r\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nAccept-Encoding: gzip, deflate\r\nConnection: keep-alive\r\nUpgrade-Insecure-Requests: 1</td>
+               <td>Src Port: 35310<br />Dst Port: 80</td>
+               <td>Src IP: 10.0.0.3<br />Dst IP: 10.0.0.2</td>
+               <td>
+                  <p>Src MAC: bc:35:db:cf:1b:03<br />Dst MAC: bc:f2:b8:57:86:02</p>
+               </td>
+            </tr>
+            <tr>
+               <td>Network Layer</td>
+               <td>IP</td>
+               <td>Packets</td>
+               <td>GET / HTTP/1.1\r\nHost: 10.0.0.2\r\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nAccept-Encoding: gzip, deflate\r\nConnection: keep-alive\r\nUpgrade-Insecure-Requests: 1</td>
+               <td>Src Port: 35310<br />Dst Port: 80</td>
+               <td>Src IP: 10.0.0.3<br />Dst IP: 10.0.0.2</td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Transport Layer</td>
+               <td>TCP</td>
+               <td>Segments</td>
+               <td>GET / HTTP/1.1\r\nHost: 10.0.0.2\r\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nAccept-Encoding: gzip, deflate\r\nConnection: keep-alive\r\nUpgrade-Insecure-Requests: 1</td>
+               <td>Src Port: 35310<br />Dst Port: 80</td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td style="background-color: #f8cac6;">Session Layer</td>
+               <td style="background-color: #f8cac6;">Socket</td>
+               <td style="background-color: #f8cac6;">Data</td>
+               <td style="background-color: #f8cac6;">GET / HTTP/1.1\r\nHost: 10.0.0.2\r\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nAccept-Encoding: gzip, deflate\r\nConnection: keep-alive\r\nUpgrade-Insecure-Requests: 1</td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Presentation Layer</td>
+               <td>Raw</td>
+               <td>Data</td>
+               <td>GET / HTTP/1.1\r\nHost: 10.0.0.2\r\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nAccept-Encoding: gzip, deflate\r\nConnection: keep-alive\r\nUpgrade-Insecure-Requests: 1</td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Application Layer</td>
+               <td>HTTP</td>
+               <td>Data</td>
+               <td>
+                  <ul>
+                     <li>GET / HTTP/1.1</li>
+                     <li>Host: 10.0.0.2</li>
+                     <li>User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0</li>
+                     <li>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8</li>
+                     <li>Accept-Language: en-US,en;q=0.5</li>
+                     <li>Accept-Encoding: gzip, deflate</li>
+                     <li>Connection: keep-alive</li>
+                     <li>Upgrade-Insecure-Requests: 1</li>
+                  </ul>
+               </td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+         </tbody>
+      </table>
+      <p>&nbsp;</p>
+      <pre class="prettyprint">from http.server import SimpleHTTPRequestHandler<br />from socketserver import TCPServer<br />from io import BytesIO<br />from gzip import GzipFile<br />from datetime import datetime<br />from contextlib import suppress<br /><br />with suppress(Exception):<br />&nbsp; &nbsp; from netifaces import gateways, ifaddresses, AF_INET, AF_LINK<br />&nbsp; &nbsp; print("The default network interface is: ",gateways()['default'][AF_INET][1])<br />&nbsp; &nbsp; print("The default network interface mac address is: ",ifaddresses(gateways()['default'][AF_INET][1])[AF_LINK])<br /><br /><span style="background-color: #f8cac6;">class Server(SimpleHTTPRequestHandler):</span><br />&nbsp; &nbsp; def do_GET(self):<br />&nbsp; &nbsp; &nbsp; &nbsp; compressed = False<br />&nbsp; &nbsp; &nbsp; &nbsp; content = b'&lt;HTML&gt;&lt;h1&gt;Hello World!&lt;/h1&gt;&lt;/HTML&gt;'<br />&nbsp; &nbsp; &nbsp; &nbsp; if len(content) &gt; 0:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if 'accept-encoding' in self.headers:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if 'gzip' in self.headers['accept-encoding']:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bytes_ = BytesIO()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; with GzipFile(fileobj=bytes_, mode='w', compresslevel=5) as f:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f.write(content)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f.close()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; content = bytes_.getvalue()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compressed = True<br />&nbsp; &nbsp; &nbsp; &nbsp; self.send_response(200)<br />&nbsp; &nbsp; &nbsp; &nbsp; if compressed:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; self.send_header('content-encoding', 'gzip')<br />&nbsp; &nbsp; &nbsp; &nbsp; self.send_header('content-length', len(content))<br />&nbsp; &nbsp; &nbsp; &nbsp; self.end_headers()<br />&nbsp; &nbsp; &nbsp; &nbsp; self.wfile.write(content)<br /><br />&nbsp; &nbsp; def log_message(self, format, *args):<br />&nbsp; &nbsp; &nbsp; &nbsp; print("[{}] - {}:{} - {} {}".format(datetime.now().strftime("%m/%d/%Y %H:%M:%S"), self.client_address[0],self.client_address[1],args[0],args[1]))<br /><br />TCPServer(('0.0.0.0', 80), Server)<span style="background-color: #f8cac6;">.serve_forever()</span></pre>
+      <h4>Server Sends the Data</h4>
+      <p>The server sends data to the client</p>
+      <table border="1">
+         <tbody>
+            <tr style="background-color: #ced4d9;">
+               <td>Layer</td>
+               <td>Protocol</td>
+               <td>PDU</td>
+               <td>Info</td>
+               <td>Ports</td>
+               <td>IPs</td>
+               <td>MACs</td>
+            </tr>
+            <tr>
+               <td>Application Layer</td>
+               <td>HTTP</td>
+               <td>Data</td>
+               <td>
+                  <ul>
+                     <li>HTTP/1.0 200 OK</li>
+                     <li>Server: SimpleHTTP/0.6 Python/3.11.6</li>
+                     <li>Date: Sun, 18 Aug 2024 02:54:42 GMT</li>
+                     <li>content-encoding: gzip</li>
+                     <li>content-length: 49<br /><br /></li>
+                     <li>&lt;HTML&gt;&lt;h1&gt;Hello World!&lt;/h1&gt;&lt;/HTML&gt;</li>
+                  </ul>
+               </td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Presentation Layer</td>
+               <td>GZIP</td>
+               <td>Data</td>
+               <td>HTTP/1.0 200 OK\r\nServer: SimpleHTTP/0.6 Python/3.11.6\r\nDate: Sun, 18 Aug 2024 02:54:42 GMT\r\ncontent-encoding: gzip\r\ncontent-length: 49\r\n\r\n....rb.f..........0..H...W../.IQ........g..7"...</td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td style="background-color: #f8cac6;">Session Layer</td>
+               <td style="background-color: #f8cac6;">Socket</td>
+               <td style="background-color: #f8cac6;">Data</td>
+               <td style="background-color: #f8cac6;">HTTP/1.0 200 OK\r\nServer: SimpleHTTP/0.6 Python/3.11.6\r\nDate: Sun, 18 Aug 2024 02:54:42 GMT\r\ncontent-encoding: gzip\r\ncontent-length: 49\r\n\r\n....rb.f..........0..H...W../.IQ........g..7"...</td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Transport Layer</td>
+               <td>TCP</td>
+               <td>Segments</td>
+               <td>HTTP/1.0 200 OK\r\nServer: SimpleHTTP/0.6 Python/3.11.6\r\nDate: Sun, 18 Aug 2024 02:54:42 GMT\r\ncontent-encoding: gzip\r\ncontent-length: 49\r\n\r\n....rb.f..........0..H...W../.IQ........g..7"...</td>
+               <td>Src Port: 80<br />Dst Port: 35310</td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Network Layer</td>
+               <td>IP</td>
+               <td>Packets</td>
+               <td>HTTP/1.0 200 OK\r\nServer: SimpleHTTP/0.6 Python/3.11.6\r\nDate: Sun, 18 Aug 2024 02:54:42 GMT\r\ncontent-encoding: gzip\r\ncontent-length: 49\r\n\r\n....rb.f..........0..H...W../.IQ........g..7"...</td>
+               <td>Src Port: 80<br />Dst Port: 35310</td>
+               <td>Src IP: 10.0.0.2<br />Dst IP: 10.0.0.3</td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Data Link Layer</td>
+               <td>Ethernet</td>
+               <td>Frames</td>
+               <td>HTTP/1.0 200 OK\r\nServer: SimpleHTTP/0.6 Python/3.11.6\r\nDate: Sun, 18 Aug 2024 02:54:42 GMT\r\ncontent-encoding: gzip\r\ncontent-length: 49\r\n\r\n....rb.f..........0..H...W../.IQ........g..7"...</td>
+               <td>Src Port: 80<br />Dst Port: 35310</td>
+               <td>Src IP: 10.0.0.2<br />Dst IP: 10.0.0.3</td>
+               <td>Src MAC: bc:f2:b8:57:86:02<br />Dst MAC: bc:35:db:cf:1b:03</td>
+            </tr>
+            <tr>
+               <td>Physical Layer</td>
+               <td>Coax</td>
+               <td>Bits</td>
+               <td>01001000 01010100 01010100 01010000 00101111 00110001 00101110 00110000 00100000&nbsp;</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+            </tr>
+         </tbody>
+      </table>
+      <p>&nbsp;</p>
+      <pre class="prettyprint">from http.server import SimpleHTTPRequestHandler<br />from socketserver import TCPServer<br />from io import BytesIO<br />from gzip import GzipFile<br />from datetime import datetime<br />from contextlib import suppress<br /><br />with suppress(Exception):<br />&nbsp; &nbsp; from netifaces import gateways, ifaddresses, AF_INET, AF_LINK<br />&nbsp; &nbsp; print("The default network interface is: ",gateways()['default'][AF_INET][1])<br />&nbsp; &nbsp; print("The default network interface mac address is: ",ifaddresses(gateways()['default'][AF_INET][1])[AF_LINK])<br /><br />class Server(SimpleHTTPRequestHandler):<br />&nbsp; &nbsp; def do_GET(self):<br />&nbsp; &nbsp; &nbsp; &nbsp; compressed = False<br />&nbsp; &nbsp; &nbsp; &nbsp; content = b'&lt;HTML&gt;&lt;h1&gt;Hello World!&lt;/h1&gt;&lt;/HTML&gt;'<br />&nbsp; &nbsp; &nbsp; &nbsp; if len(content) &gt; 0:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if 'accept-encoding' in self.headers:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if 'gzip' in self.headers['accept-encoding']:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bytes_ = BytesIO()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; with GzipFile(fileobj=bytes_, mode='w', compresslevel=5) as f:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f.write(content)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f.close()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; content = bytes_.getvalue()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compressed = True<br />&nbsp; &nbsp; &nbsp; &nbsp; self.send_response(200)<br />&nbsp; &nbsp; &nbsp; &nbsp; if compressed:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; self.send_header('content-encoding', 'gzip')<br />&nbsp; &nbsp; &nbsp; &nbsp; self.send_header('content-length', len(content))<br />&nbsp; &nbsp; &nbsp; &nbsp; self.end_headers()<br />&nbsp; &nbsp; &nbsp; &nbsp; <span style="background-color: #f8cac6;">self.wfile.write(content)</span><br /><br />&nbsp; &nbsp; def log_message(self, format, *args):<br />&nbsp; &nbsp; &nbsp; &nbsp; print("[{}] - {}:{} - {} {}".format(datetime.now().strftime("%m/%d/%Y %H:%M:%S"), self.client_address[0],self.client_address[1],args[0],args[1]))<br /><br />TCPServer(('0.0.0.0', 80), Server).serve_forever()</pre>
+      <h4>Client Receives Data</h4>
+      <p>The client receives the data within the session</p>
+      <table border="1">
+         <thead>
+            <tr style="background-color: #ced4d9;">
+               <td>Layer</td>
+               <td>Protocol</td>
+               <td>PDU</td>
+               <td>Info</td>
+               <td>Ports</td>
+               <td>IPs</td>
+               <td>MACs</td>
+            </tr>
+         </thead>
+         <tbody>
+            <tr>
+               <td>Physical Layer</td>
+               <td>Coax</td>
+               <td>Bits</td>
+               <td>01001000 01010100 01010100 01010000 00101111 00110001 00101110 00110000 00100000&nbsp;</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+               <td>01001000 01010100</td>
+            </tr>
+            <tr>
+               <td>Data Link Layer</td>
+               <td>Ethernet</td>
+               <td>Frames</td>
+               <td>HTTP/1.0 200 OK\r\nServer: SimpleHTTP/0.6 Python/3.11.6\r\nDate: Sun, 18 Aug 2024 02:54:42 GMT\r\ncontent-encoding: gzip\r\ncontent-length: 49\r\n\r\n....rb.f..........0..H...W../.IQ........g..7"...</td>
+               <td>Src Port: 80<br />Dst Port: 35310</td>
+               <td>Src IP: 10.0.0.2<br />Dst IP: 10.0.0.3</td>
+               <td>Src MAC: bc:f2:b8:57:86:02<br />Dst MAC: bc:35:db:cf:1b:03</td>
+            </tr>
+            <tr>
+               <td>Network Layer</td>
+               <td>IP</td>
+               <td>Packets</td>
+               <td>HTTP/1.0 200 OK\r\nServer: SimpleHTTP/0.6 Python/3.11.6\r\nDate: Sun, 18 Aug 2024 02:54:42 GMT\r\ncontent-encoding: gzip\r\ncontent-length: 49\r\n\r\n....rb.f..........0..H...W../.IQ........g..7"...</td>
+               <td>Src Port: 80<br />Dst Port: 35310</td>
+               <td>Src IP: 10.0.0.2<br />Dst IP: 10.0.0.3</td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Transport Layer</td>
+               <td>TCP</td>
+               <td>Segments</td>
+               <td>HTTP/1.0 200 OK\r\nServer: SimpleHTTP/0.6 Python/3.11.6\r\nDate: Sun, 18 Aug 2024 02:54:42 GMT\r\ncontent-encoding: gzip\r\ncontent-length: 49\r\n\r\n....rb.f..........0..H...W../.IQ........g..7"...</td>
+               <td>Src Port: 80<br />Dst Port: 35310</td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td style="background-color: #f8cac6;">Session Layer</td>
+               <td style="background-color: #f8cac6;">Socket</td>
+               <td style="background-color: #f8cac6;">Data</td>
+               <td style="background-color: #f8cac6;">HTTP/1.0 200 OK\r\nServer: SimpleHTTP/0.6 Python/3.11.6\r\nDate: Sun, 18 Aug 2024 02:54:42 GMT\r\ncontent-encoding: gzip\r\ncontent-length: 49\r\n\r\n....rb.f..........0..H...W../.IQ........g..7"...</td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Presentation Layer</td>
+               <td>GZIP</td>
+               <td>Data</td>
+               <td>HTTP/1.0 200 OK\r\nServer: SimpleHTTP/0.6 Python/3.11.6\r\nDate: Sun, 18 Aug 2024 02:54:42 GMT\r\ncontent-encoding: gzip\r\ncontent-length: 49\r\n\r\n....rb.f..........0..H...W../.IQ........g..7"...</td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>Application Layer</td>
+               <td>HTTP</td>
+               <td>Data</td>
+               <td>
+                  <ul>
+                     <li>HTTP/1.0 200 OK</li>
+                     <li>Server: SimpleHTTP/0.6 Python/3.11.6</li>
+                     <li>Date: Sun, 18 Aug 2024 02:54:42 GMT</li>
+                     <li>content-encoding: gzip</li>
+                     <li>content-length: 49<br /><br /></li>
+                     <li>&lt;HTML&gt;&lt;h1&gt;Hello World!&lt;/h1&gt;&lt;/HTML&gt;</li>
+                  </ul>
+               </td>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+         </tbody>
+      </table>
+   </body>
+</html>

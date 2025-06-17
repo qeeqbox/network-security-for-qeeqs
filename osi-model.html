@@ -1,0 +1,133 @@
+<html lang="en" dir="ltr" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>OSI Model</title>
+        <link href="content/stylesheet.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    </head>
+    <body>
+      <h3>Network</h3>
+      <p>The pathways that help you communicate with others are computer networks, they are an essential part of our daily online communications</p>
+      <hr />
+      <h3>Network Security</h3>
+      <p>The methods and procedures taken to secure a network from unauthorized users\access</p>
+      <hr />
+      <h3>Why Network Security is Important?</h3>
+      <p>When so much of our information is online, whether personal, social, banking, medical, etc., privacy and security matter. The demand and importance of safeguarding our information is crucial</p>
+      <hr />
+      <h3>Protocols</h3>
+      <p>A protocol in networking is a set of rules that specify how data is formatted, sent, or delivered</p>
+      <ul>
+         <li>
+            File Transfer Protocol (ftp) 
+            <ul>
+               <li>Transfers files between a client and a server</li>
+            </ul>
+         </li>
+         <li>
+            Secure Shell Protocol (ssh) 
+            <ul>
+               <li>Enables two computers to communicate securely</li>
+            </ul>
+         </li>
+         <li>
+            Teletype Network (telnet) 
+            <ul>
+               <li>Enables two computers to communicate</li>
+            </ul>
+         </li>
+         <li>
+            Simple Mail Transfer Protocol (SMTP) 
+            <ul>
+               <li>Sends, receives, and relays emails between a sender and a receiver</li>
+            </ul>
+         </li>
+         <li>
+            Domain Name System Protocol (DNS) 
+            <ul>
+               <li>Translates human-readable hostnames into IP addresses</li>
+            </ul>
+         </li>
+         <li>
+            Hypertext Transfer Protocol (http) 
+            <ul>
+               <li>A TCP/IP based communication protocol for transporting data between a client and a web server</li>
+            </ul>
+         </li>
+         <li>
+            Internet Message Access Protocol (imap)<br /> 
+            <ul>
+               <li>Retrieves messages from email servers</li>
+            </ul>
+         </li>
+         <li>
+            Hypertext Transfer Protocol Secure (https) 
+            <ul>
+               <li>An extension to http for transporting data between a client and a web server securely</li>
+            </ul>
+         </li>
+         <li>
+            Microsoft Directory Services (microsoft-ds) 
+            <ul>
+               <li>Used for file sharing over the TCP/IP network by SMB service</li>
+            </ul>
+         </li>
+         <li>
+            MySQL (mysql) 
+            <ul>
+               <li>Relational database management system</li>
+            </ul>
+         </li>
+         <li>
+            Remote Desktop Protocol (ms-wbt-server) 
+            <ul>
+               <li>Used to interact with a desktop computer remotely</li>
+            </ul>
+         </li>
+         <li>
+            Viewer Remote Desktop (vnc) 
+            <ul>
+               <li>Used to interact with a desktop computer remotely</li>
+            </ul>
+         </li>
+      </ul>
+      <hr />
+      <h3>Open Systems Interconnection (OSI)</h3>
+      <p>A conceptual model consisting of seven layers that concludes how applications communicate over a network. It outlines the steps required to transfer data using a physical medium from a source to a destination on a network-connected device. It was created based on recommendations from ISO in the 1980s.</p>
+      <h4>Layers</h4>
+      <pre class="prettyprint">Layer 7 &nbsp; &nbsp; Application  &nbsp; &nbsp; Firefox, Chrome &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;   Host Layer<br />Layer 6 &nbsp; &nbsp; Presentation &nbsp; &nbsp; ASCII, JPEG, GZIP &nbsp;  &nbsp;  &nbsp; &nbsp;  Host Layer<br />Layer 5 &nbsp; &nbsp; Session &nbsp; &nbsp;  &nbsp; &nbsp; HTTP, HTTPS, FTP, SMTP  &nbsp; &nbsp; &nbsp;Host Layer<br />Layer 4 &nbsp; &nbsp; Transport &nbsp; &nbsp;  &nbsp; TCP, UDP &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;  &nbsp;Host Layer<br />Layer 3 &nbsp; &nbsp; Network &nbsp; &nbsp;  &nbsp; &nbsp; IPv4, IPv6, IPSec &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; Media Layer<br />Layer 2 &nbsp; &nbsp; Data Link &nbsp; &nbsp;  &nbsp; PPP, IEEE, L2TP, Ethernet &nbsp;  Media Layer<br />Layer 1 &nbsp; &nbsp; Physical &nbsp; &nbsp;  &nbsp;  Cables, Wireless &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;Media Layer</pre>
+      <h4>OSI in Action - Browsing The Internet (Web Client)</h4>
+      <pre class="prettyprint">Layer 7 &nbsp; &nbsp; Application &nbsp; &nbsp; HTTP          the client uses a web browser to send http data<br />Layer 6 &nbsp; &nbsp; Presentation &nbsp; &nbsp;GZIP &nbsp;&nbsp;       handles the data format and compresses it (If applicable)<br />Layer 5 &nbsp; &nbsp; Session &nbsp; &nbsp; &nbsp; &nbsp; Socket &nbsp; &nbsp;    opens a session for communication between source and destination (Web Server)<br />Layer 4 &nbsp; &nbsp; Transport &nbsp; &nbsp; &nbsp; TCP           data is segmented, and each segment will have the source and destination port number<br />Layer 3 &nbsp; &nbsp; Network &nbsp; &nbsp; &nbsp; &nbsp; IPv4          converts segments into packets; each packet will have the source and destination IP address<br />Layer 2 &nbsp; &nbsp; Data Link &nbsp; &nbsp; &nbsp; Ethernet &nbsp;    converts packets into frames; each frame will have the source and destination MAC address<br />Layer 1 &nbsp; &nbsp; Physical &nbsp; &nbsp; &nbsp;  Coax          converts frames into bit-stream and send the data over the physical medium</pre>
+      <h4>OSI in Action -&nbsp;Browsing The Internet (Web Server)</h4>
+      <pre class="prettyprint">Layer 1 &nbsp; &nbsp; Physical &nbsp; &nbsp; &nbsp; &nbsp;Coax   &nbsp; &nbsp; &nbsp; &nbsp;converts bit-stream into frames<br />Layer 2 &nbsp; &nbsp; Data Link &nbsp; &nbsp; &nbsp; Ethernet &nbsp;    merges all frames into packets<br />Layer 3 &nbsp; &nbsp; Network &nbsp; &nbsp; &nbsp; &nbsp; IPv4          converts packets into segments<br />Layer 4 &nbsp; &nbsp; Transport &nbsp; &nbsp; &nbsp; TCP           converts segments into data<br />Layer 5 &nbsp; &nbsp; Session &nbsp; &nbsp; &nbsp; &nbsp; Socket &nbsp; &nbsp;    data is kept<br />Layer 6 &nbsp; &nbsp; Presentation &nbsp; &nbsp;GZIP      &nbsp;   decompresses data and reverts the formatting<br />Layer 7 &nbsp; &nbsp; Application &nbsp; &nbsp; http          the destination receives the client http data</pre>
+      <hr />
+      <h3>Python Web Server</h3>
+      <p>Python has a built-in package called http.server that can be used as file server or a customized web server that handles HTTP(s) requests.</p>
+      <h4>How to Run http.server (Default)</h4>
+      <p>In the terminal, go to the directory that has the static content (files, images, etc..) and type <code>python3 -m http.server</code>, this serves the directory content to clients (Some threat actors utilize this method when they breach a network, Python is most likely running on the devices, so it's used to move data in the breached network). After running the <code>http.server</code> it will show if it was successful or not, and the port that's used</p>
+      <pre class="prettyprint">pc@mac~% python3 -m http.server<br />Serving HTTP on :: port 8000 (http://[::]:8000/)&nbsp;</pre>
+      <p>You can either use a web browser or client to communicate with that server, the content URL in this case is <code>http://127.0.0.1:8000</code></p>
+      <pre class="prettyprint"><code>pc@mac~%</code> curl http://127.0.0.1:8000<br /><br />&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"&gt;<br />&lt;html&gt;<br />&lt;head&gt;<br />&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;<br />&lt;title&gt;Directory listing for /&lt;/title&gt;<br />&lt;/head&gt;<br />&lt;body&gt;<br />&lt;h1&gt;Directory listing for /&lt;/h1&gt;<br />&lt;hr&gt;<br />&lt;ul&gt;<br />&lt;li&gt;&lt;a href=".bash_history"&gt;<span style="background-color: #f8cac6;">.bash_history</span>&lt;/a&gt;&lt;/li&gt;</pre>
+      <h4>How to Run http.server (Customized)</h4>
+      <p>The course content is built around a customized webserver that responds to HTTP GET requests, handles sessions/compressions, and logs requests. You may need to install a package called <code>netifaces</code> using <code>pip3 install netifaces</code> (In case you do not want to run the server or having issues with it, there is a Wireshark dump that was captured while interacting with the customized webserver, skip these steps)</p>
+      <pre class="prettyprint">pc@mac~% pip3 install netifaces</pre>
+      <p>Then copy the following into a file (E.g. server.py)</p>
+      <pre class="prettyprint">from http.server import SimpleHTTPRequestHandler<br />from socketserver import TCPServer<br />from io import BytesIO<br />from gzip import GzipFile<br />from datetime import datetime<br />from contextlib import suppress<br /><br />with suppress(Exception):<br />&nbsp; &nbsp; from netifaces import gateways, ifaddresses, AF_INET, AF_LINK<br />&nbsp; &nbsp; print("The default network interface is: ",gateways()['default'][AF_INET][1])<br />&nbsp; &nbsp; print("The default network interface mac address is: ",ifaddresses(gateways()['default'][AF_INET][1])[AF_LINK])<br /><br />class Server(SimpleHTTPRequestHandler):<br />&nbsp; &nbsp; def do_GET(self):<br />&nbsp; &nbsp; &nbsp; &nbsp; compressed = False<br />&nbsp; &nbsp; &nbsp; &nbsp; content = b'&lt;HTML&gt;&lt;h1&gt;Hello World!&lt;/h1&gt;&lt;/HTML&gt;'<br />&nbsp; &nbsp; &nbsp; &nbsp; if len(content) &gt; 0:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if 'accept-encoding' in self.headers:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if 'gzip' in self.headers['accept-encoding']:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bytes_ = BytesIO()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; with GzipFile(fileobj=bytes_, mode='w', compresslevel=5) as f:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f.write(content)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f.close()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; content = bytes_.getvalue()<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compressed = True<br />&nbsp; &nbsp; &nbsp; &nbsp; self.send_response(200)<br />&nbsp; &nbsp; &nbsp; &nbsp; if compressed:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; self.send_header('content-encoding', 'gzip')<br />&nbsp; &nbsp; &nbsp; &nbsp; self.send_header('content-length', len(content))<br />&nbsp; &nbsp; &nbsp; &nbsp; self.end_headers()<br />&nbsp; &nbsp; &nbsp; &nbsp; self.wfile.write(content)<br /><br />&nbsp; &nbsp; def log_message(self, format, *args):<br />&nbsp; &nbsp; &nbsp; &nbsp; print("[{}] - {}:{} - {} {}".format(datetime.now().strftime("%m/%d/%Y %H:%M:%S"), self.client_address[0],self.client_address[1],args[0],args[1]))<br /><br />TCPServer(('0.0.0.0', 80), Server).serve_forever()</pre>
+      <p>Then run the file as Python script with elevated privileges, the reason why you need to elevate privileges because the customized webserver is using port <code>80</code> (Port below <code>1024</code> can be open only with elevated privileges, E.g. <code>root</code>)</p>
+      <pre class="prettyprint">pc@mac~% sudo python3 server.py<br />The default network interface is: &nbsp;eth0<br />The default network interface mac address is: &nbsp;[{'addr': 'bc:f2:b8:57:86:02'}]</pre>
+      <p>You can either use a web browser or client to communicate with that server, the content URL in this case is <code>http://127.0.0.1:80</code></p>
+      <pre class="prettyprint"><code>pc@mac~%</code> curl http://127.0.0.1:80<br /><br /><span style="background-color: #f8cac6;">&lt;HTML&gt;&lt;h1&gt;Hello World!&lt;/h1&gt;&lt;/HTML&gt;</span></pre>
+      <hr />
+      <h3>Packet Analyzer (Wireshark)</h3>
+      <p>A tool or device for capturing and analyzing packets of data traveling in a communication channel. Click on <code>open a capture file</code>, then open the dump from the Start Here Module or this link</p>
+      <p><img src="content/image1_0.png"/></p>
+      <p>There are four important sections in Wireshark</p>
+      <ol style="list-style-type: decimal;">
+         <li>Filter Bar - You can filter the traffic based on specific rules like IP, port, or protocol</li>
+         <li>Packets List - This shows the traffic as entries and you click on any of the entries for more details, or you can sort them by time, IP, etc..</li>
+         <li>Packet Details - When you click on an entry, the details of that entry will show up in this section</li>
+         <li>Packet bytes - You can review any packet bytes in this section, if you click on any byte, it will show the meaning of it in the Packet Details section (This is a very helpful feature)</li>
+      </ol>
+      <p><img src="content/image1_1.png"/></p>
+   </body>
+</html>
